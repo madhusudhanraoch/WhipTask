@@ -8,6 +8,8 @@
 
 import Foundation
 
+//API filterType list
+
 enum FilterType: String {
     case all = "ALL"
     case today = "TODAY"
