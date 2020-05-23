@@ -8,6 +8,8 @@
 
 import Foundation
 
+//This class managing Request URL to get response from backend
+
 enum Router {
     case getDashboard(scope: FilterType)
     

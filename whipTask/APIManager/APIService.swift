@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+// If response got failure from API then APIError represents related failure Message
+
 enum APIError: Error {
     case requestFailed
     case invalidData
@@ -22,6 +25,8 @@ enum APIError: Error {
         }
     }
 }
+
+// Here we are calling API Class to get response from backend.
 
 class APIService {
     var dataTask: URLSessionDataTask?

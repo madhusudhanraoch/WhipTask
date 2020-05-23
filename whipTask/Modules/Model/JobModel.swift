@@ -8,6 +8,9 @@
 
 import Foundation
 
+//By using this Job Model class we will dispaly Job related info for user on UI
+
+
 struct Job: Codable {
     var description: String?
     var items: [JobItem]?

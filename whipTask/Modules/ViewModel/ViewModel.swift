@@ -33,7 +33,8 @@ class ViewModel {
     
     var loadAnalytics: (()->())?
     
-    func initFetchAnalytics() {
+    func initFetchAnalytics()
+    {
         APIService().request(router: .getDashboard(scope: .all)) { [weak self] (result: Result<ResponseModel, APIError>) in
             switch result {
             case .success(let response):

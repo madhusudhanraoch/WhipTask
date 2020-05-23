@@ -18,12 +18,15 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
         initView()
         initViewModel()
         viewModel.initFetchAnalytics()
     }
     
-    func initView() {
+    func initView()
+    {
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
@@ -42,6 +45,8 @@ class ViewController: UIViewController {
     }
     
 }
+
+// Tableview datasource and delegate methods here to dispaly data for user on UI
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
     

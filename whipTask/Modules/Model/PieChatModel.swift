@@ -8,6 +8,9 @@
 
 import Foundation
 
+//By using this PieChart Model class we will dispaly PieChart related info for user on UI
+
+
 struct PieChart: Codable {
     var chartType: String?
     var description: String?

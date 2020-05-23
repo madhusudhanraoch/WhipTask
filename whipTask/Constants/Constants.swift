@@ -8,7 +8,7 @@
 
 import Foundation
 
-//API filterType list
+// filterType to get API response
 
 enum FilterType: String {
     case all = "ALL"
@@ -16,6 +16,8 @@ enum FilterType: String {
     case last_seven_days = "LAST_7_DAYS"
     case last_thirty_days = "LAST_30_DAYS"
 }
+
+//TableviewSection accordingly API response
 
 enum TableViewSection: Int {
     case rating = 0

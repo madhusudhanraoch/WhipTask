@@ -8,6 +8,9 @@
 
 import Foundation
 
+
+//Here in ResponseModelClass we will categorise Analytics as per our Response
+
 struct ResponseModel: Codable {
     var httpStatus: Int?
     var response: Response?

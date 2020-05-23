@@ -8,6 +8,8 @@
 
 import Foundation
 
+//By using this Rating Model class we will dispaly rating related info for user on UI
+
 struct Rating: Codable {
     var avg: Int?
     var description: String?
