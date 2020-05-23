@@ -15,6 +15,10 @@ class ViewController: UIViewController {
         return ViewModel()
     }()
     
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    var currentScope: FilterType = FilterType.all
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -22,21 +26,37 @@ class ViewController: UIViewController {
         
         initView()
         initViewModel()
-        viewModel.initFetchAnalytics()
+        viewModel.initFetchAnalytics(scope: currentScope)
     }
     
     func initView()
     {
+        self.title = "Dashboard"
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.estimatedSectionHeaderHeight = 70
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 70
         
         AnalyticsSectionCell.registerWithTable(tableView)
+        RatingCell.registerWithTable(tableView)
         JobItemCell.registerWithTable(tableView)
+        
+         setNavigationBarButton()
     }
     
     func initViewModel() {
+        
+        viewModel.updateLoadingStatus = { [weak self] () in
+            DispatchQueue.main.async {
+                let isLoading = self?.viewModel.isLoading ?? false
+                if isLoading {
+                    self?.activityIndicatorView.startAnimating()
+                }else {
+                    self?.activityIndicatorView.stopAnimating()
+                }
+            }
+        }
+        
         viewModel.loadAnalytics = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -44,7 +64,58 @@ class ViewController: UIViewController {
         }
     }
     
-}
+        func setNavigationBarButton() {
+            
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+                image: UIImage(named: "filterIcon"),
+                style: .plain,
+                target: self,
+                action: #selector(filterTapped(sender:))
+            )
+
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(filterTapped(sender:)))
+        }
+        
+        @objc func filterTapped(sender: UIBarButtonItem) {
+            showScopFilter()
+        }
+        
+        func showScopFilter() {
+            guard let dropDownVC = storyboard?.instantiateViewController(withIdentifier: "DropDownViewController") as? DropDownViewController else {
+                return
+            }
+            dropDownVC.modalPresentationStyle = .popover
+            dropDownVC.preferredContentSize = CGSize(width: 200, height: 200)
+            dropDownVC.didSelectFilter = { [weak self] selectedFilter in
+                self?.currentScope = selectedFilter
+                if let scope = self?.currentScope {
+                   self?.viewModel.initFetchAnalytics(scope: scope)
+                }
+                print(selectedFilter.value)
+            }
+            dropDownVC.selectedFilter = currentScope
+            
+            let ppc = dropDownVC.popoverPresentationController
+            ppc?.permittedArrowDirections = .any
+            ppc?.delegate = self
+            ppc?.barButtonItem = navigationItem.rightBarButtonItem
+            present(dropDownVC, animated: true, completion: nil)
+        }
+        
+    }
+
+
+    extension ViewController: UIPopoverPresentationControllerDelegate {
+        func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+            return .none
+        }
+        
+        func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+            return .none
+        }
+    }
+
+    
 
 // Tableview datasource and delegate methods here to dispaly data for user on UI
 
@@ -73,7 +144,19 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let section = TableViewSection(rawValue: indexPath.section)!
         switch section {
         case .rating:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RatingCell.reuseIdentifier, for: indexPath) as? RatingCell else {
+                fatalError("Cell not exists")
+            }
+            let rating = viewModel.getRating()
+            cell.avgLbl.text = rating.avg
+            cell.totalRatingsLbl.text = rating.numberOfRatingsString
+            cell.oneStarProgressBar.progress = rating.progress(type: .one)
+            cell.twoStarProgressBar.progress = rating.progress(type: .two)
+            cell.threeStarProgressBar.progress = rating.progress(type: .three)
+            cell.fourStarProgressBar.progress = rating.progress(type: .four)
+            cell.fiveStarProgressBar.progress = rating.progress(type: .five)
+            return cell
+
         case.jobs:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: JobItemCell.reuseIdentifier, for: indexPath) as? JobItemCell else {
                 fatalError("Cell not exists")

@@ -31,7 +31,7 @@ enum Router {
     var parameters: [URLQueryItem] {
         switch self {
         case .getDashboard(let scope):
-            return [URLQueryItem(name: "scope", value: scope.rawValue)]
+            return [URLQueryItem(name: "scope", value: scope.value)]
         }
     }
     
