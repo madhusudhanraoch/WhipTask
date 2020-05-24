@@ -168,6 +168,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.titleLbl.text = item.title
             cell.descriptionLbl.text = item.description
             cell.growthLbl.text = item.growth
+            cell.arrowLbl.text = item.arrowText
             return cell
         case .pieChart:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PieChartCell.reuseIdentifier, for: indexPath) as? PieChartCell else {
@@ -188,6 +189,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.titleLbl.text = item.title
             cell.descriptionLbl.text = item.description
             cell.growthLbl.text = item.growth
+            cell.arrowLbl.text = item.arrowText
             return cell
         }
     }
