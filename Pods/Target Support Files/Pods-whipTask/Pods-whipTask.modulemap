@@ -1,0 +1,6 @@
+framework module Pods_whipTask {
+  umbrella header "Pods-whipTask-umbrella.h"
+
+  export *
+  module * { export * }
+}

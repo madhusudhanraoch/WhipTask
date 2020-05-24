@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Charts
 
 
 class ViewModel {
@@ -139,6 +140,14 @@ class ViewModel {
             }
             return RatingData(rating: rating)
         }
+    
+    func getChart(indexPath: IndexPath) -> PieChartItemData {
+        guard let charts = analytics?.pieCharts else {
+            fatalError("rating not exists")
+        }
+        return PieChartItemData(chart: charts[indexPath.row])
+    }
+
 
     }
 
@@ -234,3 +243,73 @@ class ViewModel {
         }
         
     }
+
+struct PieChartItemData {
+    
+    private let chart: PieChart
+    
+    init(chart: PieChart) {
+        self.chart = chart
+    }
+    
+    var title: String {
+        return chart.title ?? ""
+    }
+    var description: String {
+        return chart.description ?? ""
+    }
+    
+    var keys: [String] {
+        guard let items = chart.items else {
+            fatalError("items not exists")
+        }
+        return items.compactMap({ $0.key })
+    }
+    
+    var values: [Float] {
+        guard let items = chart.items else {
+            fatalError("items not exists")
+        }
+        return items.compactMap({ $0.value })
+    }
+    
+    var pieChartData: PieChartData {
+        
+        // 1. Set ChartDataEntry
+        var dataEntries: [ChartDataEntry] = []
+        for i in 0..<keys.count {
+            let dataEntry = PieChartDataEntry(value: Double(values[i]), label: keys[i], data: keys[i] as AnyObject)
+            dataEntries.append(dataEntry)
+        }
+        // 2. Set ChartDataSet
+        let pieChartDataSet = PieChartDataSet(entries: dataEntries, label: nil)
+        pieChartDataSet.colors = colorsOfCharts(numbersOfColor: keys.count)
+        pieChartDataSet.sliceSpace = 3
+        // 3. Set ChartData
+        let pieChartData = PieChartData(dataSet: pieChartDataSet)
+        let format = NumberFormatter()
+        format.numberStyle = .percent
+        format.maximumFractionDigits = 1
+        format.multiplier = 1.0
+        
+        let formatter = DefaultValueFormatter(formatter: format)
+        pieChartData.setValueFormatter(formatter)
+        
+        return pieChartData
+        
+    }
+    
+    private func colorsOfCharts(numbersOfColor: Int) -> [UIColor] {
+        var colors: [UIColor] = []
+        for _ in 0..<numbersOfColor {
+            let red = Double(arc4random_uniform(256))
+            let green = Double(arc4random_uniform(256))
+            let blue = Double(arc4random_uniform(256))
+            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+            colors.append(color)
+        }
+        return colors
+    }
+    
+}
+

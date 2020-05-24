@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         AnalyticsSectionCell.registerWithTable(tableView)
         RatingCell.registerWithTable(tableView)
         JobItemCell.registerWithTable(tableView)
+        PieChartCell.registerWithTable(tableView)
         
          setNavigationBarButton()
     }
@@ -73,7 +74,6 @@ class ViewController: UIViewController {
                 action: #selector(filterTapped(sender:))
             )
 
-//            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(filterTapped(sender:)))
         }
         
         @objc func filterTapped(sender: UIBarButtonItem) {
@@ -167,7 +167,16 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             cell.growthLbl.text = item.growth
             return cell
         case .pieChart:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PieChartCell.reuseIdentifier, for: indexPath) as? PieChartCell else {
+                fatalError("Cell not exists")
+            }
+            let chart = viewModel.getChart(indexPath: indexPath)
+            cell.titleLbl.text = chart.title
+            cell.descriptionLbl.text = chart.description
+            cell.pieChartView.data = chart.pieChartData
+            cell.pieChartView.animate(xAxisDuration: 1.5)
+            return cell
+
         case .service:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: JobItemCell.reuseIdentifier, for: indexPath) as? JobItemCell else {
                 fatalError("Cell not exists")

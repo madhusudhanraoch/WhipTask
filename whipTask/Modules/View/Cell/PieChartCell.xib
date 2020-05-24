@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PieChartCell" id="KGk-i7-Jjw" customClass="PieChartCell" customModule="whipTask" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="300"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="299.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DTl-bb-W3m">
+                        <rect key="frame" x="10" y="0.0" width="300" height="290"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hzy-2L-1iz">
+                                <rect key="frame" x="10" y="10" width="64" height="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Services by type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SNw-dO-0M4">
+                                <rect key="frame" x="10" y="35" width="101" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STd-tv-HPv" customClass="PieChartView" customModule="Charts">
+                                <rect key="frame" x="10" y="60" width="280" height="230"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="0Lq-d4-jKs"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hzy-2L-1iz" firstAttribute="leading" secondItem="DTl-bb-W3m" secondAttribute="leading" constant="10" id="AqI-Tk-z85"/>
+                            <constraint firstAttribute="bottom" secondItem="STd-tv-HPv" secondAttribute="bottom" id="PfZ-yP-Ar9"/>
+                            <constraint firstItem="STd-tv-HPv" firstAttribute="leading" secondItem="DTl-bb-W3m" secondAttribute="leading" constant="10" id="gq0-B9-cOk"/>
+                            <constraint firstItem="hzy-2L-1iz" firstAttribute="top" secondItem="DTl-bb-W3m" secondAttribute="top" constant="10" id="jlX-aT-7rf"/>
+                            <constraint firstItem="SNw-dO-0M4" firstAttribute="leading" secondItem="DTl-bb-W3m" secondAttribute="leading" constant="10" id="ljn-PT-JS2"/>
+                            <constraint firstAttribute="trailing" secondItem="STd-tv-HPv" secondAttribute="trailing" constant="10" id="ohy-Cz-fjB"/>
+                            <constraint firstItem="STd-tv-HPv" firstAttribute="top" secondItem="SNw-dO-0M4" secondAttribute="bottom" constant="9" id="rbw-xd-eDH"/>
+                            <constraint firstItem="SNw-dO-0M4" firstAttribute="top" secondItem="hzy-2L-1iz" secondAttribute="bottom" constant="5" id="xDn-9T-bwy"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="DTl-bb-W3m" secondAttribute="trailing" constant="10" id="Hmt-aV-7Dl"/>
+                    <constraint firstItem="DTl-bb-W3m" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="r23-7O-Cmz"/>
+                    <constraint firstItem="DTl-bb-W3m" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="seC-1A-pb4"/>
+                    <constraint firstAttribute="bottom" secondItem="DTl-bb-W3m" secondAttribute="bottom" constant="9.5" id="zet-xN-fLe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLbl" destination="SNw-dO-0M4" id="Tyh-tx-7Wu"/>
+                <outlet property="pieChartView" destination="STd-tv-HPv" id="odn-ug-73n"/>
+                <outlet property="titleLbl" destination="hzy-2L-1iz" id="fEs-NF-kSJ"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
+        </tableViewCell>
+    </objects>
+</document>
