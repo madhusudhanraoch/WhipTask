@@ -23,7 +23,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        
+       //The below methods related to viewModel to get the data
+       
         initView()
         initViewModel()
         viewModel.initFetchAnalytics(scope: currentScope)
@@ -79,6 +80,8 @@ class ViewController: UIViewController {
         @objc func filterTapped(sender: UIBarButtonItem) {
             showScopFilter()
         }
+    
+    //This method represnts POPview for filter types
         
         func showScopFilter() {
             guard let dropDownVC = storyboard?.instantiateViewController(withIdentifier: "DropDownViewController") as? DropDownViewController else {

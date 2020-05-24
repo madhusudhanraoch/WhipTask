@@ -8,6 +8,8 @@
 
 import UIKit
 
+//This controller represnnts filter Types PopView on maincontroller
+
 class DropDownViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,6 +24,8 @@ class DropDownViewController: UIViewController {
     }
 
 }
+
+
 
 extension DropDownViewController: UITableViewDataSource, UITableViewDelegate {
     

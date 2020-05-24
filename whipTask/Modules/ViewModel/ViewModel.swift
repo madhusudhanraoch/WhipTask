@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 import Charts
 
+//The total Business Logic implemented here to show data for user
+
 
 class ViewModel {
     
